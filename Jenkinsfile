@@ -1,3 +1,4 @@
+
 properties([pipelineTriggers([githubPush()])])
 node('linux') {
     git url: 'https://github.com/litt4343/infrastructure-pipeline.git', branch: 'master'
@@ -15,6 +16,9 @@ node ('linux') {
 
     }
     stage ("GetInstanceOutput"){
-    def output = sh returnStdout: true, script: 'aws ec2 describe-instances --region us-east-1 | jq .'
+    def output = sh returnStdout: true, script: 'aws ec2 describe-instances --region us-east-1 --instance-id | jq .'
+    sh "aws ec2 instances-running --instance-ids "i-XXXXXXXX""
+    sh "aws ec2 wait stop-instances --instance-ids "i-XXXXXXXX""
     }
 }
+
