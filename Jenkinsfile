@@ -15,6 +15,6 @@ node ('linux') {
 
     }
     stage ("GetInstanceOutput"){
-    def output = sh returnStdout: true, script: 'aws ec2 describe-instances | jq .'
+    def output = sh returnStdout: true, script: 'aws ec2 describe-instances --region us-east-1 | jq .'
     }
 }
